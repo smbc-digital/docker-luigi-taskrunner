@@ -35,5 +35,5 @@ browser and you should see that a HelloWorldTask ran.
 Great!! Now you can mount a volume with task code in it to /luigi/tasks and run
 your own Luigi tasks in disposable containers.
 
-Cron the docker run or schedule / manually run it with your favourite CS server
+Cron the docker run or schedule / manually run it with your favourite CI server
 and enjoy the data.
