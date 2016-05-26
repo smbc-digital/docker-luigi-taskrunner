@@ -5,7 +5,7 @@
 
 FROM python:latest
 
-MAINTAINER  Tim Birkett <tim@birkett-bros.com> (@pysysops)
+MAINTAINER  Stockport <info@stockport.gov.uk>
 
 ARG user=app
 ARG group=app
