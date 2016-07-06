@@ -26,6 +26,7 @@ VOLUME /etc/luigi
 RUN mkdir -p /luigi/tasks
 RUN mkdir -p /luigi/work
 RUN mkdir -p /luigi/outputs
+RUN mkdir -p /luigi/inputs
 
 ADD ./luigi/tasks/hello_world.py /luigi/tasks
 
