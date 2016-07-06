@@ -42,7 +42,8 @@ RUN apt-get update && apt-get install -y \
     libaio1 \
     libaio-dev \
     alien \
-    poppler-utils
+    poppler-utils \
+    mdbtools
 
 # Get Oracle Client (this isn't the offical download location, but at least it works without logging in!)
 RUN curl -O http://repo.dlt.psu.edu/RHEL5Workstation/x86_64/RPMS/oracle-instantclient12.1-basic-12.1.0.1.0-1.x86_64.rpm
