@@ -26,7 +26,7 @@ VOLUME /etc/luigi
 RUN mkdir -p /luigi/tasks
 RUN mkdir -p /luigi/work
 RUN mkdir -p /luigi/outputs
-RUN mkdir -p /luigi/inputs/adoption
+RUN mkdir -p /luigi/inputs
 
 ADD ./luigi/tasks/hello_world.py /luigi/tasks
 
@@ -35,7 +35,7 @@ RUN chown -R ${user}:${group} /luigi
 VOLUME /luigi/work
 VOLUME /luigi/tasks
 VOLUME /luigi/outputs
-VOLUME /luigi/inputs/adoption
+VOLUME /luigi/inputs
 
 RUN apt-get update && apt-get install -y \
     libpq-dev \
