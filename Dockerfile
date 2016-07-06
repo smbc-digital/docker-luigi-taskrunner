@@ -34,6 +34,7 @@ RUN chown -R ${user}:${group} /luigi
 VOLUME /luigi/work
 VOLUME /luigi/tasks
 VOLUME /luigi/outputs
+VOLUME /luigi/inputs
 
 RUN apt-get update && apt-get install -y \
     libpq-dev \
