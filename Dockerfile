@@ -69,7 +69,7 @@ USER ${user}
 RUN bash -c "pyvenv /luigi/.pyenv \
     && source /luigi/.pyenv/bin/activate \
     && pip install cython \
-    && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2 ibm_db"
+    && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2 ibm_db smtplib"
 
 ADD ./luigi/taskrunner.sh /luigi/
 
