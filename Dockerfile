@@ -46,7 +46,10 @@ RUN apt-get update && apt-get install -y \
     alien \
     poppler-utils \
     mdbtools \
-    postgresql-client
+    postgresql-client \
+    unixodbc-dev \
+    g++ \
+    python-devel
 
 # Get Oracle Client (this isn't the offical download location, but at least it works without logging in!)
 RUN curl -O http://repo.dlt.psu.edu/RHEL5Workstation/x86_64/RPMS/oracle-instantclient12.1-basic-12.1.0.1.0-1.x86_64.rpm
@@ -69,7 +72,7 @@ USER ${user}
 RUN bash -c "pyvenv /luigi/.pyenv \
     && source /luigi/.pyenv/bin/activate \
     && pip install cython \
-    && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2 ibm_db"
+    && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2 ibm_db pyodbc"
 
 ADD ./luigi/taskrunner.sh /luigi/
 
