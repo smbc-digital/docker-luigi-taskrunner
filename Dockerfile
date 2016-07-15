@@ -47,8 +47,6 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     mdbtools \
     postgresql-client 
-    
-RUN apt-get install -y unixodbc-dev
 
 
 # Get Oracle Client (this isn't the offical download location, but at least it works without logging in!)
@@ -72,7 +70,7 @@ USER ${user}
 RUN bash -c "pyvenv /luigi/.pyenv \
     && source /luigi/.pyenv/bin/activate \
     && pip install cython \
-    && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2 ibm_db pyodbc"
+    && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2"
 
 ADD ./luigi/taskrunner.sh /luigi/
 
