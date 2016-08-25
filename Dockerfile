@@ -46,6 +46,7 @@ RUN apt-get update && apt-get install -y \
     alien \
     poppler-utils \
     mdbtools \
+    unixODBC \
     postgresql-client 
 
 
