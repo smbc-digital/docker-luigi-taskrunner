@@ -40,6 +40,7 @@ VOLUME /luigi/inputs
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     freetds-dev \
+    freetds-bin \
     build-essential \
     libaio1 \
     libaio-dev \
