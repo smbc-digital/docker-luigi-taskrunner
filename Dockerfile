@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     mdbtools \
     unixODBC \
-    postgresql-client-9.6
+    postgresql-client 
 
 
 # Get Oracle Client (this isn't the offical download location, but at least it works without logging in!)
