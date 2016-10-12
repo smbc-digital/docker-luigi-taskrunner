@@ -23,6 +23,9 @@ ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
 VOLUME /etc/luigi
 
+RUN mkdir /etc/freetds
+ADD ./etc/freetds/freetds.conf /etc/freetds/
+
 RUN mkdir -p /luigi/tasks
 RUN mkdir -p /luigi/work
 RUN mkdir -p /luigi/outputs
@@ -48,8 +51,7 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     mdbtools \
     unixODBC \
-    postgresql-client \
-    crudini
+    postgresql-client
 
 
 # Get Oracle Client (this isn't the offical download location, but at least it works without logging in!)
