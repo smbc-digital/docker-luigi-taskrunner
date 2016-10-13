@@ -70,6 +70,11 @@ ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
 ENV LD_LIBRARY_PATH /usr/lib/oracle/12.1/client64/lib
 RUN ldconfig
 
+# Get iconv-chunks
+RUN curl -O https://raw.githubusercontent.com/mla/iconv-chunks/master/iconv-chunks
+RUN chmod +x iconv-chunks
+RUN mv iconv-chunks /usr/local/bin
+
 USER ${user}
 
 RUN bash -c "pyvenv /luigi/.pyenv \
