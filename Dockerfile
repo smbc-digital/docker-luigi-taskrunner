@@ -11,7 +11,8 @@ MAINTAINER  Stockport <info@stockport.gov.uk>
 RUN apt-get update && apt-get install -y \
     awscli
 
-RUN source ./aws.keys
+RUN tail ./aws.keys | grep AWS_SECRET_ACCESS_KEY > access.key
+RUN EXPORT AWS_SECRET_ACCESS_KEY=$(cat access.key)
 RUN aws s3 cp s3://bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar connect.4.10.FC1DE.LINUX-PPC64.tar
 
 
