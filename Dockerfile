@@ -18,6 +18,8 @@ ENV gid 2101
 RUN groupadd -g ${gid} ${group} \
     && useradd -u ${uid} -g ${group} -m -s /bin/bash ${user}
 
+RUN pwd .
+
 RUN mkdir /etc/luigi
 ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
