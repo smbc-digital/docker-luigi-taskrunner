@@ -37,3 +37,5 @@ your own Luigi tasks in disposable containers.
 
 Cron the docker run or schedule / manually run it with your favourite CI server
 and enjoy the data.
+
+#test commit. to setup snap ci
