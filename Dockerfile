@@ -36,7 +36,7 @@ RUN mkdir -p /luigi/inputs
 RUN pwd
 RUN ls -l
 
-COPY /var/snap-ci/repo/luigi/tasks/hello_world.py /luigi/tasks
+ADD ./luigi/tasks/hello_world.py /luigi/tasks
 
 RUN chown -R ${user}:${group} /luigi
 
