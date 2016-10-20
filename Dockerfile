@@ -18,19 +18,13 @@ ENV gid 2101
 RUN groupadd -g ${gid} ${group} \
     && useradd -u ${uid} -g ${group} -m -s /bin/bash ${user}
 
-RUN mkdir -p /etc/luigi
-RUN mkdir -p /etc/freetds
-RUN mkdir -p /luigi/tasks
-RUN mkdir -p /luigi/work
-RUN mkdir -p /luigi/outputs
-RUN mkdir -p /luigi/inputs
-
-ADD ./luigi/tasks/hello_world.py /luigi/tasks/
+RUN mkdir -p /etc/luigi /etc/freetds
 ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
-
 ADD ./etc/freetds/freetds.conf /etc/freetds/
 
+RUN mkdir -p /luigi/tasks /luigi/work /luigi/outputs /luigi/inputs
+ADD ./luigi/tasks/hello_world.py /luigi/tasks/
 
 RUN chown -R ${user}:${group} /luigi
 
