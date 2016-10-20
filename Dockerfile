@@ -7,6 +7,13 @@ FROM python:latest
 
 MAINTAINER  Stockport <info@stockport.gov.uk>
 
+#Just download stuff from s3
+RUN apt-get update && apt-get install -y \
+    awscli
+
+RUN aws s3 cp s3://bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar connect.4.10.FC1DE.LINUX-PPC64.tar
+
+
 ENV user app
 ENV group app
 ENV uid 2101
@@ -79,7 +86,7 @@ RUN bash -c "pyvenv /luigi/.pyenv \
     && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2"
 
 # Added informix driver download from the bucket
-RUN aws s3 s3://bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar connect.4.10.FC1DE.LINUX-PPC64.tar
+RUN aws s3 cp s3://bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar connect.4.10.FC1DE.LINUX-PPC64.tar
 
 ADD ./luigi/taskrunner.sh /luigi/
 
