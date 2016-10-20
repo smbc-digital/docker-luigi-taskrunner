@@ -25,12 +25,12 @@ RUN mkdir -p /luigi/work
 RUN mkdir -p /luigi/outputs
 RUN mkdir -p /luigi/inputs
 
+ADD ./luigi/tasks/hello_world.py /luigi/tasks
 ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
 
 ADD ./etc/freetds/freetds.conf /etc/freetds/
 
-ADD ./luigi/tasks/hello_world.py /luigi/tasks
 
 RUN chown -R ${user}:${group} /luigi
 
