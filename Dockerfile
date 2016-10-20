@@ -83,6 +83,7 @@ RUN bash -c "pyvenv /luigi/.pyenv \
     && pip install cython \
     && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2"
 
+# Added informix driver download from the bucket
 RUN aws s3 s3://bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar connect.4.10.FC1DE.LINUX-PPC64.tar
 
 ADD ./luigi/taskrunner.sh /luigi/
