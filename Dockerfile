@@ -7,10 +7,10 @@ FROM python:latest
 
 MAINTAINER  Stockport <info@stockport.gov.uk>
 
-ARG user=app
-ARG group=app
-ARG uid=2101
-ARG gid=2101
+ENV user app
+ENV group app
+ENV uid 2101
+ENV gid 2101
 
 # The luigi app is run with user `app`, uid = 2101
 # If you bind mount a volume from the host or a data container,
