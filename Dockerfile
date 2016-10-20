@@ -31,6 +31,9 @@ RUN mkdir -p /luigi/work
 RUN mkdir -p /luigi/outputs
 RUN mkdir -p /luigi/inputs
 
+RUN pwd
+RUN ls -l
+
 COPY ./luigi/tasks/hello_world.py /luigi/tasks
 
 RUN chown -R ${user}:${group} /luigi
