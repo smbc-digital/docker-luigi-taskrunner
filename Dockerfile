@@ -31,7 +31,7 @@ RUN mkdir -p /luigi/work
 RUN mkdir -p /luigi/outputs
 RUN mkdir -p /luigi/inputs
 
-ADD ./etc/luigi/tasks/hello_world.py /luigi/tasks
+COPY ./luigi/tasks/hello_world.py /luigi/tasks
 
 RUN chown -R ${user}:${group} /luigi
 
