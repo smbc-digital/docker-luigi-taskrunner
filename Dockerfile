@@ -7,19 +7,9 @@ FROM python:latest
 
 MAINTAINER  Stockport <info@stockport.gov.uk>
 
-RUN ls
-RUN cat /var/snap-ci/repo/file.txt
-
 #Just download stuff from s3
 RUN apt-get update && apt-get install -y \
     awscli
-
-RUN echo $AWS_SECRET_ACCESS_KEY
-RUN echo $AWS_ACCESS_KEY_ID
-RUN export ABC=$AWS_ACCESS_KEY_ID
-
-
-
 
 ENV user app
 ENV group app
@@ -33,10 +23,7 @@ RUN groupadd -g ${gid} ${group} \
     && useradd -u ${uid} -g ${group} -m -s /bin/bash ${user}
 
 RUN mkdir -p /etc/luigi /etc/freetds
-ADD ./file.txt /etc/luigi/
-RUN cat /etc/luigi/file.txt
 RUN aws s3 cp s3://bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar connect.4.10.FC1DE.LINUX-PPC64.tar
-
 
 ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
