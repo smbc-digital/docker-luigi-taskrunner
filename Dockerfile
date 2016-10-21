@@ -27,8 +27,12 @@ RUN mkdir -p /etc/luigi /etc/freetds
 RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.3.50.FC9.LINUX.tar
 RUN mkdir ./informix
 RUN tar -xf connect.3.50.FC9.LINUX.tar -C ./informix
-RUN ./informix/installconn
-RUN ls ./informix/
+
+VOLUME ./informix/
+
+RUN /informix/installconn
+
+RUN ls /informix/
 
 ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
