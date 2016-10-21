@@ -35,10 +35,6 @@ RUN chown informix:informix ./informix
 RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.3.50.FC9.LINUX.tar
 RUN tar -xf connect.3.50.FC9.LINUX.tar -C ./informix
 
-RUN export INFORMIXDIR=/informix \ 
-&& export INFORMIXSQLHOSTS=${INFORMIXDIR}/etc/sqlhosts \
-&& export LD_LIBRARY_PATH=${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql:${INFORMIXDIR}/lib/tools \
-&& cd /informix && ./installconn
 # -- end of informix section
 
 ADD ./etc/luigi/logging.cfg /etc/luigi/
@@ -69,8 +65,15 @@ RUN apt-get update && apt-get install -y \
     mdbtools \
     unixODBC \
     postgresql-client \
-    awscli
+    bc
 
+# Informix
+RUN export INFORMIXDIR=/informix \ 
+&& export INFORMIXSQLHOSTS=${INFORMIXDIR}/etc/sqlhosts \
+&& export LD_LIBRARY_PATH=${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql:${INFORMIXDIR}/lib/tools \
+&& cd /informix && ./installconn
+
+# Informix end
 
 # Get Oracle Client (this isn't the offical download location, but at least it works without logging in!)
 RUN curl -O http://repo.dlt.psu.edu/RHEL5Workstation/x86_64/RPMS/oracle-instantclient12.1-basic-12.1.0.1.0-1.x86_64.rpm
