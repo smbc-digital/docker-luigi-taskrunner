@@ -7,6 +7,7 @@ FROM python:latest
 
 MAINTAINER  Stockport <info@stockport.gov.uk>
 
+RUN ls
 RUN cat ./file.txt
 
 #Just download stuff from s3
