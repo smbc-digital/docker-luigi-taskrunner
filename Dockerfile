@@ -24,7 +24,10 @@ RUN groupadd -g ${gid} ${group} \
 
 RUN mkdir -p /etc/luigi /etc/freetds
 
-ls ~/.aws/
+RUN ls ~/.aws/
+RUN pwd
+
+
 RUN aws s3 cp s3://bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar connect.4.10.FC1DE.LINUX-PPC64.tar
 
 ADD ./etc/luigi/logging.cfg /etc/luigi/
