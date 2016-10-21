@@ -28,6 +28,8 @@ RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.3.50.FC9.LINUX.tar
 RUN mkdir ./informix
 RUN tar -xf connect.3.50.FC9.LINUX.tar -C ./informix
 
+RUN pwd
+RUN ls -l
 RUN cd ./informix
 RUN ./installconn
 
