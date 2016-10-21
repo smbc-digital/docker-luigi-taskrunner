@@ -72,7 +72,7 @@ RUN export INFORMIXDIR=/informix \
 && export INFORMIXSQLHOSTS=${INFORMIXDIR}/etc/sqlhosts \
 && export LD_LIBRARY_PATH=${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql:${INFORMIXDIR}/lib/tools \
 && cd /informix && ./installconn
-
+# odd
 # Informix end
 
 # Get Oracle Client (this isn't the offical download location, but at least it works without logging in!)
