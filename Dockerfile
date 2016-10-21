@@ -24,8 +24,6 @@ RUN groupadd -g ${gid} ${group} \
 
 RUN mkdir -p /etc/luigi /etc/freetds
 
-snap-shell
-
 RUN pwd
 
 
