@@ -27,7 +27,7 @@ RUN mkdir -p /etc/luigi /etc/freetds
 RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar
 RUN mkdir ./informix
 RUN tar -xf connect.4.10.FC1DE.LINUX-PPC64.tar -C ./informix
-RUN ./informix/installconect
+RUN ./informix/installconnect
 RUN ls ./informix/
 
 ADD ./etc/luigi/logging.cfg /etc/luigi/
