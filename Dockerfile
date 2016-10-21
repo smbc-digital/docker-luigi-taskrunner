@@ -68,11 +68,11 @@ RUN apt-get update && apt-get install -y \
     bc
 
 # Informix
-RUN export INFORMIXDIR=/informix \ 
-&& export TERM=dumb \
-&& export INFORMIXSQLHOSTS=${INFORMIXDIR}/etc/sqlhosts \
-&& export LD_LIBRARY_PATH=${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql:${INFORMIXDIR}/lib/tools \
-&& cd /informix && ./installconn
+#RUN export INFORMIXDIR=/informix \ 
+#&& export TERM=dumb \
+#&& export INFORMIXSQLHOSTS=${INFORMIXDIR}/etc/sqlhosts \
+#&& export LD_LIBRARY_PATH=${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql:${INFORMIXDIR}/lib/tools \
+#&& cd /informix && ./installconn
 # Informix end
 
 # Get Oracle Client (this isn't the offical download location, but at least it works without logging in!)
