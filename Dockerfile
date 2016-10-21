@@ -29,7 +29,7 @@ RUN mkdir ./informix
 RUN tar -xf connect.3.50.FC9.LINUX.tar -C ./informix
 
 RUN cd ./informix
-RUN /informix/installconn
+RUN ./installconn
 
 RUN ls /informix/
 
