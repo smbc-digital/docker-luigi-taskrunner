@@ -7,6 +7,8 @@ FROM python:latest
 
 MAINTAINER  Stockport <info@stockport.gov.uk>
 
+RUN cat ./file.txt
+
 #Just download stuff from s3
 RUN apt-get update && apt-get install -y \
     awscli
@@ -15,7 +17,6 @@ RUN echo $AWS_SECRET_ACCESS_KEY
 RUN echo $AWS_ACCESS_KEY_ID
 RUN export ABC=$AWS_ACCESS_KEY_ID
 
-RUN echo $ABC
 
 
 
