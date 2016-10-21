@@ -24,7 +24,8 @@ RUN groupadd -g ${gid} ${group} \
 
 RUN mkdir -p /etc/luigi /etc/freetds
 
-RUN ls ~/.aws/
+snap-shell
+
 RUN pwd
 
 
