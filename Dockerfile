@@ -27,7 +27,7 @@ RUN mkdir -p /etc/luigi /etc/freetds
 RUN pwd
 
 
-RUN aws s3 cp s3://bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar connect.4.10.FC1DE.LINUX-PPC64.tar --no-sign-request
+RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar
 
 ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
