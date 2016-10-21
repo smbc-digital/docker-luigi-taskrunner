@@ -69,6 +69,7 @@ RUN apt-get update && apt-get install -y \
 
 # Informix
 RUN export INFORMIXDIR=/informix \ 
+&& export TERM=dumb \
 && export INFORMIXSQLHOSTS=${INFORMIXDIR}/etc/sqlhosts \
 && export LD_LIBRARY_PATH=${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql:${INFORMIXDIR}/lib/tools \
 && cd /informix && ./installconn
