@@ -8,7 +8,7 @@ FROM python:latest
 MAINTAINER  Stockport <info@stockport.gov.uk>
 
 RUN ls
-RUN cat ./file.txt
+RUN cat /var/snap-ci/repo/file.txt
 
 #Just download stuff from s3
 RUN apt-get update && apt-get install -y \
