@@ -30,13 +30,7 @@ RUN tar -xf connect.3.50.FC9.LINUX.tar -C ./informix
 
 RUN pwd
 RUN ls -l
-RUN cd /informix
-RUN pwd
-RUN ls -l
-
-RUN installconn
-
-RUN ls /informix/
+RUN cd /informix && ./installconn
 
 ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
