@@ -24,10 +24,10 @@ RUN groupadd -g ${gid} ${group} \
 
 RUN mkdir -p /etc/luigi /etc/freetds
 
-RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar
+RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.3.50.FC9.LINUX.tar
 RUN mkdir ./informix
-RUN tar -xf connect.4.10.FC1DE.LINUX-PPC64.tar -C ./informix
-RUN ./informix/installconnect
+RUN tar -xf connect.3.50.FC9.LINUX.tar -C ./informix
+RUN ./informix/installconn
 RUN ls ./informix/
 
 ADD ./etc/luigi/logging.cfg /etc/luigi/
