@@ -7,14 +7,15 @@ FROM python:latest
 
 MAINTAINER  Stockport <info@stockport.gov.uk>
 
-#Just download stuff from s3
-RUN apt-get update && apt-get install -y \
-    awscli
-
 ENV user app
 ENV group app
 ENV uid 2101
 ENV gid 2101
+
+ENV informixuser informix
+ENV informixgroup informix
+ENV informixuid 2102
+ENV informixgid 2102
 
 # The luigi app is run with user `app`, uid = 2101
 # If you bind mount a volume from the host or a data container,
@@ -22,15 +23,20 @@ ENV gid 2101
 RUN groupadd -g ${gid} ${group} \
     && useradd -u ${uid} -g ${group} -m -s /bin/bash ${user}
 
+#this section is all about informix
+RUN groupadd -g ${informixgid} ${informixgroup} \
+    && useradd -u ${informixuid} -g ${informixgroup} -m -s /bin/bash ${informixuser}
+
 RUN mkdir -p /etc/luigi /etc/freetds
 
-RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.3.50.FC9.LINUX.tar
 RUN mkdir ./informix
+RUN chown informix:informix ./informix
+
+RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.3.50.FC9.LINUX.tar
 RUN tar -xf connect.3.50.FC9.LINUX.tar -C ./informix
 
-RUN pwd
-RUN ls -l
 RUN cd /informix && ./installconn
+# -- end of informix section
 
 ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
