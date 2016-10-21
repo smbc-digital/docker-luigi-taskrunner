@@ -25,6 +25,8 @@ RUN groupadd -g ${gid} ${group} \
 RUN mkdir -p /etc/luigi /etc/freetds
 
 RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar
+RUN mkdir ./informix
+RUN tar -xf connect.4.10.FC1DE.LINUX-PPC64.tar -C ./informix
 
 ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
@@ -84,9 +86,6 @@ RUN bash -c "pyvenv /luigi/.pyenv \
     && source /luigi/.pyenv/bin/activate \
     && pip install cython \
     && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2"
-
-# Added informix driver download from the bucket
-RUN aws s3 cp s3://bi-docker/connect.4.10.FC1DE.LINUX-PPC64.tar connect.4.10.FC1DE.LINUX-PPC64.tar
 
 ADD ./luigi/taskrunner.sh /luigi/
 
