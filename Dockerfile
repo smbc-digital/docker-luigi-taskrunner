@@ -11,7 +11,7 @@ ENV user app
 ENV group app
 ENV uid 2101
 ENV gid 2101
-
+# not picked up by github
 ENV informixuser informix
 ENV informixgroup informix
 ENV informixuid 2102
