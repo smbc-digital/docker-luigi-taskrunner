@@ -30,8 +30,11 @@ RUN tar -xf connect.3.50.FC9.LINUX.tar -C ./informix
 
 RUN pwd
 RUN ls -l
-RUN cd ./informix
-RUN ./installconn
+RUN cd /informix
+RUN pwd
+RUN ls -l
+
+RUN installconn
 
 RUN ls /informix/
 
