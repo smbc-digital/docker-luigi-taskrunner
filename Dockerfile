@@ -65,15 +65,21 @@ RUN apt-get update && apt-get install -y \
     mdbtools \
     unixODBC \
     postgresql-client \
-    bc
+    bc \
+    openjdk-7-jre 
 
 # Informix
-#RUN export INFORMIXDIR=/informix \ 
-#&& export TERM=dumb \
-#&& export INFORMIXSQLHOSTS=${INFORMIXDIR}/etc/sqlhosts \
-#&& export LD_LIBRARY_PATH=${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql:${INFORMIXDIR}/lib/tools \
-#&& cd /informix && ./installconn
+ENV INFORMIXDIR=/informix
+ENV TERM=dumb
+ENV INFORMIXSQLHOSTS=${INFORMIXDIR}/etc/sqlhosts 
+ENV LD_LIBRARY_PATH=${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql:${INFORMIXDIR}/lib/tools 
+RUN cd $INFORMIXDIR \
+&& ./installconn -silent -acceptlicense=yes
+
 # Informix end
+
+RUN echo $INFORMIXDIR
+RUN ls $INFORMIXDIR
 
 # Get Oracle Client (this isn't the offical download location, but at least it works without logging in!)
 RUN curl -O http://repo.dlt.psu.edu/RHEL5Workstation/x86_64/RPMS/oracle-instantclient12.1-basic-12.1.0.1.0-1.x86_64.rpm
@@ -96,12 +102,18 @@ RUN curl -O https://raw.githubusercontent.com/mla/iconv-chunks/master/iconv-chun
 RUN chmod +x iconv-chunks
 RUN mv iconv-chunks /usr/local/bin
 
+ADD ./etc/odbc.ini /etc/odbc.ini
+ADD ./etc/odbcinst.ini /etc/odbcinst.ini
+VOLUME $INFORMIXDIR
 USER ${user}
 
 RUN bash -c "pyvenv /luigi/.pyenv \
     && source /luigi/.pyenv/bin/activate \
     && pip install cython \
     && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2"
+
+RUN isql -v Informix informix $password
+#RUN "py luigi/py.script"
 
 ADD ./luigi/taskrunner.sh /luigi/
 
