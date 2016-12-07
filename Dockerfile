@@ -4,18 +4,13 @@
 # --------------------------------------------------------------------------
 
 FROM python:latest
-# setting up branch tracking in snap
+
 MAINTAINER  Stockport <info@stockport.gov.uk>
 
-ENV user app
-ENV group app
-ENV uid 2101
-ENV gid 2101
-# not picked up by github
-ENV informixuser informix
-ENV informixgroup informix
-ENV informixuid 2102
-ENV informixgid 2102
+ARG user=app
+ARG group=app
+ARG uid=2101
+ARG gid=2101
 
 # The luigi app is run with user `app`, uid = 2101
 # If you bind mount a volume from the host or a data container,
@@ -23,30 +18,22 @@ ENV informixgid 2102
 RUN groupadd -g ${gid} ${group} \
     && useradd -u ${uid} -g ${group} -m -s /bin/bash ${user}
 
-#this section is all about informix
-RUN groupadd -g ${informixgid} ${informixgroup} \
-    && useradd -u ${informixuid} -g ${informixgroup} -m -s /bin/bash ${informixuser}
-
-RUN mkdir -p /etc/luigi /etc/freetds
-
-RUN mkdir ./informix
-RUN chown informix:informix ./informix
-
-RUN wget https://s3-eu-west-1.amazonaws.com/bi-docker/connect.3.50.FC9.LINUX.tar
-RUN tar -xf connect.3.50.FC9.LINUX.tar -C ./informix
-
-# -- end of informix section
-
+RUN mkdir /etc/luigi
 ADD ./etc/luigi/logging.cfg /etc/luigi/
 ADD ./etc/luigi/client.cfg /etc/luigi/
+VOLUME /etc/luigi
+
+RUN mkdir /etc/freetds
 ADD ./etc/freetds/freetds.conf /etc/freetds/
 
-RUN mkdir -p /luigi/tasks /luigi/work /luigi/outputs /luigi/inputs
-ADD ./luigi/tasks/hello_world.py /luigi/tasks/
+RUN mkdir -p /luigi/tasks
+RUN mkdir -p /luigi/work
+RUN mkdir -p /luigi/outputs
+RUN mkdir -p /luigi/inputs
+
+ADD ./luigi/tasks/hello_world.py /luigi/tasks
 
 RUN chown -R ${user}:${group} /luigi
-
-VOLUME /etc/luigi
 
 VOLUME /luigi/work
 VOLUME /luigi/tasks
@@ -64,22 +51,8 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     mdbtools \
     unixODBC \
-    postgresql-client \
-    bc \
-    openjdk-7-jre 
+    postgresql-client
 
-# Informix
-ENV INFORMIXDIR=/informix
-ENV TERM=dumb
-ENV INFORMIXSQLHOSTS=${INFORMIXDIR}/etc/sqlhosts 
-ENV LD_LIBRARY_PATH=${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql:${INFORMIXDIR}/lib/tools 
-RUN cd $INFORMIXDIR \
-&& ./installconn -silent -acceptlicense=yes
-
-# Informix end
-
-RUN echo $INFORMIXDIR
-RUN ls $INFORMIXDIR
 
 # Get Oracle Client (this isn't the offical download location, but at least it works without logging in!)
 RUN curl -O http://repo.dlt.psu.edu/RHEL5Workstation/x86_64/RPMS/oracle-instantclient12.1-basic-12.1.0.1.0-1.x86_64.rpm
@@ -102,18 +75,12 @@ RUN curl -O https://raw.githubusercontent.com/mla/iconv-chunks/master/iconv-chun
 RUN chmod +x iconv-chunks
 RUN mv iconv-chunks /usr/local/bin
 
-ADD ./etc/odbc.ini /etc/odbc.ini
-ADD ./etc/odbcinst.ini /etc/odbcinst.ini
-VOLUME $INFORMIXDIR
 USER ${user}
 
 RUN bash -c "pyvenv /luigi/.pyenv \
     && source /luigi/.pyenv/bin/activate \
     && pip install cython \
     && pip install sqlalchemy luigi pymssql psycopg2 alembic pandas xlsxwriter cx_oracle requests pypdf2"
-
-RUN isql -v Informix informix $password
-#RUN "py luigi/py.script"
 
 ADD ./luigi/taskrunner.sh /luigi/
 
